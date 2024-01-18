@@ -12,3 +12,8 @@ const PORT = process.env.PORT || 8000;
 
 // Listen to a port
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+
+// Create a GET route with express
+app.get("/api/users", (req, res) => {
+    res.status(200).json({ message: "Welcome to the support desk API" });
+});
