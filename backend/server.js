@@ -1,8 +1,14 @@
 // Initialize express
 const express = require("express");
+const { errorHandler } = require("./middleware/errorMiddleware");
 
 // Initialize app
 const app = express();
+
+// Allows us to send raw json
+app.use(express.json());
+// Accept the urlencoded form
+app.use(express.urlencoded({ extended: false }));
 
 // Initialize dotenv
 const dotenv = require("dotenv").config();
@@ -17,6 +23,8 @@ app.get("/", (req, res) => {
 
 // Routes
 app.use("/api/users", require("./routes/userRoutes"));
+
+app.use(errorHandler);
 
 // Listen to a port
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
