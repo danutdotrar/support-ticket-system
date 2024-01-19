@@ -1,7 +1,9 @@
+const asyncHandler = require("express-async-handler");
+
 // @description Register a new user
 // @route /api/users
 // @access Public
-const registerUser = (req, res) => {
+const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password } = req.body;
 
     // Validation
@@ -11,13 +13,13 @@ const registerUser = (req, res) => {
     }
 
     res.send("Register Router");
-};
+});
 
 // @description Login a user
 // @route /api/users/login
 // @access Public
-const loginUser = (req, res) => {
+const loginUser = asyncHandler(async (req, res) => {
     res.send("Login Router");
-};
+});
 
 module.exports = { registerUser, loginUser };
