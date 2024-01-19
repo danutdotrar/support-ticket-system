@@ -35,14 +35,31 @@ const registerUser = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
         });
+    } else {
+        res.status(400);
+        throw new Error("Invalid user data");
     }
-    res.send("Register Router");
 });
 
 // @description Login a user
 // @route /api/users/login
 // @access Public
 const loginUser = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    // Check user and passwords match
+    if (user && (await bcrypt.compare(password, user.password))) {
+        res.status(200).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+        });
+    } else {
+        res.status(401); // unauthorize
+        throw new Error("Invalid credentials");
+    }
+
     res.send("Login Router");
 });
 
