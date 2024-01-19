@@ -2,6 +2,12 @@
 const express = require("express");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const colors = require("colors");
+
+const { connectDB } = require("./config/db");
+
+// Connect to DB
+connectDB();
+
 // Initialize app
 const app = express();
 
