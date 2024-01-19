@@ -1,7 +1,7 @@
 // Initialize express
 const express = require("express");
 const { errorHandler } = require("./middleware/errorMiddleware");
-
+const colors = require("colors");
 // Initialize app
 const app = express();
 
