@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { FaUser } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -20,6 +21,14 @@ const Register = () => {
         console.log([e.target.name], "target name");
     };
 
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        if (password !== password2) {
+            toast.error("Passwords do not match");
+        }
+    };
+
     return (
         <>
             <section className="heading">
@@ -31,7 +40,7 @@ const Register = () => {
             </section>
 
             <section className="form">
-                <form>
+                <form onSubmit={onSubmit}>
                     <div className="form-group">
                         <input
                             type="text"
@@ -41,6 +50,7 @@ const Register = () => {
                             value={name}
                             onChange={onChange}
                             placeholder="Enter your name"
+                            required
                         />
                     </div>
                     <div className="form-group">
@@ -52,6 +62,7 @@ const Register = () => {
                             value={email}
                             onChange={onChange}
                             placeholder="Enter your email"
+                            required
                         />
                     </div>
                     <div className="form-group">
@@ -63,7 +74,23 @@ const Register = () => {
                             value={password}
                             onChange={onChange}
                             placeholder="Enter your password"
+                            required
                         />
+                    </div>
+                    <div className="form-group">
+                        <input
+                            type="password"
+                            className="form-control"
+                            id="password2"
+                            name="password2"
+                            value={password2}
+                            onChange={onChange}
+                            placeholder="Confirm your password"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <button className="btn btn-block">Submit</button>
                     </div>
                 </form>
             </section>
