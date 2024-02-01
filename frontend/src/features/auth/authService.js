@@ -1,4 +1,5 @@
 import axios from "axios";
+import { FaNapster } from "react-icons/fa";
 
 const API_URL = "/api/users";
 
@@ -12,8 +13,14 @@ const register = async (userData) => {
     return response.data;
 };
 
+// Logout user
+const logout = () => {
+    localStorage.removeItem("user");
+};
+
 const authService = {
     register,
+    logout,
 };
 
 export default authService;
