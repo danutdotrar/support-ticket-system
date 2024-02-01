@@ -1,5 +1,4 @@
 import axios from "axios";
-import { FaNapster } from "react-icons/fa";
 
 const API_URL = "/api/users";
 
