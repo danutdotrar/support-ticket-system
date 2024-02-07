@@ -18,7 +18,7 @@ const getTickets = asyncHandler(async (req, res) => {
 
     const tickets = await Ticket.find({ user: req.user.id });
 
-    res.status(200).json({ message: "tickets" });
+    res.status(200).json(tickets);
 });
 
 // @description Get user ticket
@@ -103,13 +103,13 @@ const deleteTicket = asyncHandler(async (req, res) => {
         throw new Error("Not Authorized");
     }
 
-    await ticket.remove();
+    await ticket.deleteOne({ _id: req.params.id });
 
     res.status(200).json({ success: true });
 });
 
 // @description Update user ticket
-// @route UPDATE /api/tickets/:id
+// @route PUT /api/tickets/:id
 // @access Private
 const updateTicket = asyncHandler(async (req, res) => {
     // get user using the id in the JWT
@@ -133,7 +133,13 @@ const updateTicket = asyncHandler(async (req, res) => {
         throw new Error("Not Authorized");
     }
 
-    res.status(200).json(ticket);
+    const updatedTicket = await Ticket.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        { new: true }
+    );
+
+    res.status(200).json(updatedTicket);
 });
 
 module.exports = {
