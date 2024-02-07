@@ -9,6 +9,7 @@ const PrivateRoute = () => {
         return <Spinner />;
     }
 
+    // Outlet will be the route, goes to whatever our private route is
     return loggedIn ? <Outlet /> : <Navigate to="/login" />;
 };
 
