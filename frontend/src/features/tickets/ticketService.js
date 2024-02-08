@@ -4,6 +4,7 @@ const API_URL = "/api/tickets/";
 
 // Create new Ticket
 const createTicket = async (ticketData, token) => {
+    // The token needs to be in the headers in Authorization field
     const config = {
         headers: {
             Authorization: `Bearer ${token}`,
