@@ -27,11 +27,11 @@ const App = () => {
                             <Route path="/tickets" element={<Tickets />} />
                         </Route>
                         <Route
-                            path="/tickets/:ticketId"
+                            path="/ticket/:ticketId"
                             element={<PrivateRoute />}
                         >
                             <Route
-                                path="/tickets/:ticketId"
+                                path="/ticket/:ticketId"
                                 element={<Ticket />}
                             />
                         </Route>
