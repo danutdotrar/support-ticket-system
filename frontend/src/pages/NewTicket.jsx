@@ -10,7 +10,7 @@ import BackButton from "../components/BackButton";
 const NewTicket = () => {
     const { user } = useSelector((state) => state.auth);
     const { isLoading, isError, isSuccess, message } = useSelector(
-        (state) => state.ticket
+        (state) => state.tickets
     );
 
     const dispatch = useDispatch();
@@ -28,10 +28,10 @@ const NewTicket = () => {
 
         if (isSuccess) {
             dispatch(reset());
-            navigate("/tickets");
+            navigate("/new-ticket");
         }
 
-        dispatch(reset);
+        dispatch(reset());
     }, [dispatch, isError, isSuccess, navigate, message]);
 
     if (isLoading) {
