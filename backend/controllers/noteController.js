@@ -60,4 +60,5 @@ const addNote = asyncHandler(async (req, res) => {
 
 module.exports = {
     getNotes,
+    addNote,
 };
