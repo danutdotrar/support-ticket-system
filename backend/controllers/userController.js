@@ -79,9 +79,16 @@ const getMe = asyncHandler(async (req, res) => {
     res.status(200).json(user);
 });
 
+const getAllUsers = asyncHandler(async (req, res) => {
+    // find all users in the User collections
+    const users = await User.find();
+
+    res.status(200).json(users);
+});
+
 // Generate token
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "30d" });
 };
 
-module.exports = { registerUser, loginUser, getMe };
+module.exports = { registerUser, loginUser, getMe, getAllUsers };
