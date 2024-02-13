@@ -60,6 +60,11 @@ const Ticket = () => {
         navigate("/tickets");
     };
 
+    // Open Modal
+    const openModal = () => {
+        setModalIsOpen(true);
+    };
+
     if (isLoading || notesIsLoading) {
         return <Spinner />;
     }
@@ -90,7 +95,12 @@ const Ticket = () => {
                 </div>
             </header>
 
-            {ticket.status !== "closed" && <button></button>}
+            {ticket.status !== "closed" && (
+                <button onClick={openModal} className="btn">
+                    <FaPlus />
+                    Add Note
+                </button>
+            )}
 
             {notes.map((note) => (
                 <NoteItem key={note.id} note={note} />
