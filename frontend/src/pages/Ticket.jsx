@@ -65,6 +65,11 @@ const Ticket = () => {
         setModalIsOpen(true);
     };
 
+    // Close Modal
+    const closeModal = () => {
+        setModalIsOpen(false);
+    };
+
     if (isLoading || notesIsLoading) {
         return <Spinner />;
     }
@@ -101,6 +106,13 @@ const Ticket = () => {
                     Add Note
                 </button>
             )}
+
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+                contentLabel="Add Note"
+            ></Modal>
 
             {notes.map((note) => (
                 <NoteItem key={note.id} note={note} />
