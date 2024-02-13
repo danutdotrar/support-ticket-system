@@ -70,6 +70,14 @@ const Ticket = () => {
         setModalIsOpen(false);
     };
 
+    // On note submit
+    const onNoteSubmit = (e) => {
+        e.preventDefault();
+
+        console.log("submit");
+        closeModal();
+    };
+
     if (isLoading || notesIsLoading) {
         return <Spinner />;
     }
@@ -112,7 +120,30 @@ const Ticket = () => {
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="Add Note"
-            ></Modal>
+            >
+                <h2>Add Note</h2>
+                <button className="btn-close" onClick={closeModal}>
+                    X
+                </button>
+
+                <form onSubmit={onNoteSubmit}>
+                    <div className="form-group">
+                        <textarea
+                            name="noteText"
+                            id="noteText"
+                            className="form-control"
+                            placeholder="Note text"
+                            value={noteText}
+                            onChange={(e) => setNoteText(e.target.value)}
+                        ></textarea>
+                    </div>
+                    <div className="form-group">
+                        <button className="btn" type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </Modal>
 
             {notes.map((note) => (
                 <NoteItem key={note.id} note={note} />
