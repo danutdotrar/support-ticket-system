@@ -1,13 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getTicket, closeTicket } from "../features/tickets/ticketSlice";
 import { useParams, useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
+import NoteItem from "../components/NoteItem";
 import { toast } from "react-toastify";
 import { getNotes, reset as notesReset } from "../features/notes/noteSlice";
+import Modal from "react-modal";
+import { FaPlus } from "react-icons/fa";
+
+const customStyles = {
+    content: {
+        width: "600px",
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)",
+        position: "relative",
+    },
+};
+
+Modal.setAppElement("#root");
 
 const Ticket = () => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [noteText, setNoteText] = useState("");
+
     const { ticket, isLoading, isSuccess, isError, message } = useSelector(
         (state) => state.tickets
     );
@@ -68,6 +89,13 @@ const Ticket = () => {
                     <p>{ticket.description}</p>
                 </div>
             </header>
+
+            {ticket.status !== "closed" && <button></button>}
+
+            {notes.map((note) => (
+                <NoteItem key={note.id} note={note} />
+            ))}
+
             {ticket.status !== "closed" && (
                 <button
                     className="btn btn-block btn-danger"
