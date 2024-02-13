@@ -19,6 +19,7 @@ const Ticket = () => {
     const params = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     // Get ticket id
     const { ticketId } = useParams();
 
@@ -29,7 +30,7 @@ const Ticket = () => {
 
         dispatch(getTicket(ticketId));
         dispatch(getNotes(ticketId));
-    }, [isError, message, ticketId]);
+    }, [isError, message, ticketId, dispatch]);
 
     // Close ticket
     const onTicketClose = () => {
@@ -38,7 +39,7 @@ const Ticket = () => {
         navigate("/tickets");
     };
 
-    if (isLoading) {
+    if (isLoading || notesIsLoading) {
         return <Spinner />;
     }
 
