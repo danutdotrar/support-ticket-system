@@ -2,7 +2,7 @@
 const express = require("express");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const colors = require("colors");
-
+const path = require("path");
 const { connectDB } = require("./config/db");
 
 // Connect to DB
@@ -22,14 +22,25 @@ const dotenv = require("dotenv").config();
 // Define the port
 const PORT = process.env.PORT || 8000;
 
-// Create a GET route with express
-app.get("/", (req, res) => {
-    res.status(200).json({ message: "Welcome to the support desk API" });
-});
-
 // Routes
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/tickets", require("./routes/ticketRoutes"));
+
+// Serve Frontend
+if (process.env.NODE_ENV === "production") {
+    // Set build folder
+    app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+    //
+    app.get("*", (req, res) =>
+        res.sendFile(__dirname, "../", "frontend", "build", "index.html")
+    );
+} else {
+    // Create a GET route with express
+    app.get("/", (req, res) => {
+        res.status(200).json({ message: "Welcome to the support desk API" });
+    });
+}
 
 app.use(errorHandler);
 
